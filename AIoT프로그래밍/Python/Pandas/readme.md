@@ -1,54 +1,91 @@
-# ✨ 1. 변수와 자료형
-name = "뀨"
-age = 20
-height = 160.5
-is_cute = True
+# 🐼 Pandas 기본 문법 정리 (뀨를 위한 데이터 분석 입문서)
 
-# ✨ 2. 출력과 입력
-print("안녕, 뀨!")                         # 출력
-name = input("이름을 입력하세요: ")       # 입력
+Pandas는 **표(데이터프레임)** 형태로 데이터를 다루는 파이썬 라이브러리예요.  
+엑셀처럼 행과 열을 자유자재로 조작할 수 있어서 데이터 분석에 최고~! 📈💕
 
-# ✨ 3. 조건문 if
-age = 18
-if age >= 18:
-    print("성인이에요!")
-else:
-    print("아직 미성년자예요!")
+---
 
-# ✨ 4. 반복문 for / while
+## 📦 1. 설치 및 불러오기
 
-# for 문
-for i in range(5):
-    print(i)
+```bash
+pip install pandas
 
-# while 문
-count = 0
-while count < 5:
-    print(count)
-    count += 1
+📝 2. 데이터프레임 만들기
 
-# ✨ 5. 함수 정의
-def say_hello(name):
-    print("안녕, " + name + "!")
+data = {
+    "이름": ["뀨", "철수", "영희"],
+    "나이": [20, 25, 22],
+    "키": [160, 175, 158]
+}
 
-say_hello("뀨")
+df = pd.DataFrame(data)
+print(df)
 
-# ✨ 6. 리스트와 딕셔너리
+📂 3. CSV 파일 불러오기 & 저장하기
 
-# 리스트
-fruits = ["사과", "바나나", "딸기"]
-print(fruits[0])  # 사과
+# CSV 불러오기
+df = pd.read_csv("data.csv")
 
-# 딕셔너리
-person = {"name": "뀨", "age": 20}
-print(person["name"])  # 뀨
+# CSV로 저장하기
+df.to_csv("new_data.csv", index=False)
 
-# ✨ 7. 예외 처리 try-except
-try:
-    num = int(input("숫자를 입력하세요: "))
-    print(10 / num)
-except ZeroDivisionError:
-    print("0으로 나눌 수 없어요!")
-except ValueError:
-    print("숫자가 아니에요!")
+🔍 4. 데이터 확인하기
+
+df.head()       # 처음 5행
+df.tail()       # 마지막 5행
+df.shape        # (행 수, 열 수)
+df.info()       # 데이터 구조 정보
+df.describe()   # 숫자형 통계 요약
+
+🎯 5. 열과 행 다루기
+
+# 열 선택
+df["이름"]
+df[["이름", "나이"]]
+
+# 행 선택 - 위치 기반
+df.iloc[0]       # 첫 번째 행
+df.iloc[1:3]     # 두 번째~세 번째 행
+
+# 행 선택 - 조건 기반
+df[df["나이"] > 21]
+
+✏️ 6. 열 추가 & 수정
+
+# 새 열 추가
+df["몸무게"] = [50, 70, 45]
+
+# 기존 열 수정
+df["나이"] = df["나이"] + 1
+
+❌ 7. 결측치 처리
+
+df.isnull()             # 결측치 있는지 확인
+df.dropna()             # 결측치 있는 행 삭제
+df.fillna(0)            # 결측치 0으로 채우기
+
+🔃 8. 그룹화 (groupby)
+
+df.groupby("이름")["나이"].mean()  # 이름별 평균 나이
+
+🔄 9. 정렬 (sort)
+
+df.sort_values("나이")                     # 나이 오름차순
+df.sort_values("나이", ascending=False)   # 나이 내림차순
+
+📌 10. 요약 표
+
+| 함수명           | 설명            |
+| ------------- | ------------- |
+| `df.head()`   | 상위 5행 출력      |
+| `df.tail()`   | 하위 5행 출력      |
+| `df.shape`    | (행 수, 열 수) 반환 |
+| `df.info()`   | 데이터 요약 정보     |
+| `df["열명"]`    | 열 선택          |
+| `df.iloc[]`   | 위치 기반 행 선택    |
+| `df.drop()`   | 행 또는 열 삭제     |
+| `df.fillna()` | 결측치 채우기       |
+
+
+
 
